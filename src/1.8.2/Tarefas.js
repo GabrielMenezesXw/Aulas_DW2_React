@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import "../styles.css";
 
 function Tarefa() {
+  const [tarefas, setTarefas] = React.useState(["conteudo"]);
+  const [inputTarefa, setInputTarefa] = React.useState("");
+
   const handleOnSubmit = () => {};
 
   return (
@@ -24,10 +27,13 @@ function Tarefa() {
         </form>
         <section>
           <ul>
-            <li>
-              <input className="tabela_conteudo" disabled value={"Conteudo"} />
-              <button className="btn btn_excluir">Excluir</button>
-            </li>
+            {tarefas.map((tarefa) => (
+              <li>
+                <input className="tabela_conteudo" disabled value={tarefa} />
+                <button className="btn btn_excluir">Excluir</button>
+              </li>
+            ))}
+
             <li></li>
             <li></li>
             <li></li>
