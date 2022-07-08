@@ -1,47 +1,61 @@
-import React from "react";
 import "../styles.css";
+import { useState } from "react";
 
-function Tarefa() {
-  const [tarefas, setTarefas] = React.useState(["conteudo"]);
-  const [inputTarefa, setInputTarefa] = React.useState("");
+export default function App() {
+  const [tarefas, setTarefas] = useState([]);
+  const [inputTarefa, setInputTarefa] = useState("");
 
-  const handleOnSubmit = () => {};
+  const handleOnSubmit = (e) => e.preventDefault();
+
+  const getEstilos = () => ({
+    display: "flex",
+    gap: 10
+  });
+
+  const handleOnClickAdicionar = () => {
+    const novoArray = tarefas;
+    novoArray.push(inputTarefa);
+    setTarefas([...novoArray]);
+    setInputTarefa("");
+  };
 
   return (
     <div className="container">
       <div className="conteudo">
         <h1 className="titulo">Tarefas</h1>
-        <form onSubmit={handleOnSubmit}>
-          <div className="tarefa_box">
-            <lable htmlFor="tarefa"></lable>
-            <div
-              style={{
-                display: "flex",
-                gap: 10
-              }}
-            >
-              <input id="tarefa" name="tarefa" placeholder="Minha tarefa" />
-              <button className="btn btn_adicionar">Adicionar</button>
+        <div>
+          <form onSubmit={handleOnSubmit}>
+            <div className="tarefa_box">
+              <label htmlFor="tarefa">Tarefa</label>
+              <div style={getEstilos()}>
+                <input
+                  id="tarefa"
+                  name="tarefa"
+                  value={inputTarefa}
+                  onChange={(e) => setInputTarefa(e.target.value)}
+                  placeholder="minha tarefa"
+                />
+                <button
+                  className="btn btn_adicionar"
+                  onClick={handleOnClickAdicionar}
+                >
+                  Adicionar
+                </button>
+              </div>
             </div>
-          </div>
-        </form>
-        <section>
-          <ul>
-            {tarefas.map((tarefa) => (
-              <li>
-                <input className="tabela_conteudo" disabled value={tarefa} />
-                <button className="btn btn_excluir">Excluir</button>
-              </li>
-            ))}
-
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-        </section>
+          </form>
+          <section>
+            <ul>
+              {tarefas.map((tarefa) => (
+                <li>
+                  <input className="tarefa_conteudo" disabled value={tarefa} />
+                  <button className="btn btn_excluir">Excluir</button>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
       </div>
     </div>
   );
 }
-
-export default Tarefa;
