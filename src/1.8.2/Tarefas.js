@@ -1,3 +1,4 @@
+import * as React from "react";
 import "../styles.css";
 import { useState } from "react";
 
@@ -11,6 +12,10 @@ export default function App() {
     display: "flex",
     gap: 10
   });
+
+  const handleOnClickDeletar = (index) => {
+    setTarefas(tarefas.filter((_, indexOriginal) => index !== indexOriginal));
+  };
 
   const handleOnClickAdicionar = () => {
     const novoArray = tarefas;
@@ -46,10 +51,15 @@ export default function App() {
           </form>
           <section>
             <ul>
-              {tarefas.map((tarefa) => (
+              {tarefas.map((tarefa, index) => (
                 <li>
                   <input className="tarefa_conteudo" disabled value={tarefa} />
-                  <button className="btn btn_excluir">Excluir</button>
+                  <button
+                    className="btn btn_excluir"
+                    onClick={() => handleOnClickDeletar(index)}
+                  >
+                    Excluir
+                  </button>
                 </li>
               ))}
             </ul>
